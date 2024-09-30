@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">E-Market</string>
+    <string name="search_hint">Search</string>
+    <string name="add_to_cart" >Add To Cart</string>
+</resources>
