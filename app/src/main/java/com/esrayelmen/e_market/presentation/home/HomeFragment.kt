@@ -25,8 +25,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
     private val productAdapter = ProductAdapter()
     private val cartAdapter = CartAdapter()
-    private val homeViewModel by viewModels<HomeViewModel>()
-    private val mainViewModel by activityViewModels<MainViewModel>()
+    val homeViewModel by viewModels<HomeViewModel>()
+    //private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,7 +84,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     fun observeSearchQuery() {
         lifecycleScope.launch {
-            mainViewModel.searchResult.collect {
+            homeViewModel.searchResult.collect {
                 productAdapter.productList = it
             }
         }

@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-     //favoriler set edileceği zaman metod burada çağrılacak
+        //favoriler set edileceği zaman metod burada çağrılacak
     }
 
     private var _products = MutableStateFlow<List<ProductResponse>>(emptyList())
@@ -37,10 +37,11 @@ class HomeViewModel @Inject constructor(
             homeRepo.getProducts().collect { result ->
                 val response = result.data
                 when(result) {
-                     is BaseResult.Success -> {
-                         _isLoading.value = false
+                    is BaseResult.Success -> {
+                        _isLoading.value = false
                         if (response != null) {
                             _products.value = response
+                            _searchResult.value = response
                         }
                     }
 
@@ -64,6 +65,17 @@ class HomeViewModel @Inject constructor(
         }
 
          */
+    }
+
+    private val _searchResult = MutableStateFlow(_products.value)
+    val searchResult: StateFlow<List<ProductResponse>>
+        get() = _searchResult
+
+    fun search(query: String) {
+        viewModelScope.launch {
+            val results = homeRepo.searchProducts(query)
+            _searchResult.value = results
+        }
     }
 
     fun addToCart(product: ProductResponse) {

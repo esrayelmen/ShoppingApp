@@ -15,6 +15,8 @@ import androidx.navigation.navArgs
 import androidx.navigation.ui.NavigationUI
 import com.esrayelmen.e_market.R
 import com.esrayelmen.e_market.presentation.detail.DetailsFragmentArgs
+import com.esrayelmen.e_market.presentation.home.HomeFragment
+import com.esrayelmen.e_market.presentation.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -84,17 +86,21 @@ class MainActivity() : AppCompatActivity() {
         }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            val fragment by lazy {
+                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+                navHostFragment.childFragmentManager.fragments[0] as? HomeFragment
+            }
             override fun onQueryTextSubmit(query: String?): Boolean {
-                //val fragment = navHostFragment.childFragmentManager.fragments[0] as HomeFragment
+
                 query?.let {
-                    viewModel.search(query)
+                    fragment?.homeViewModel?.search(it)
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
-                    viewModel.search(newText)
+                    fragment?.homeViewModel?.search(it)
                 }
                 return false
             }
@@ -106,21 +112,21 @@ class MainActivity() : AppCompatActivity() {
     fun setupBottomNav() {
         //NavigationUI.setupWithNavController(binding.bottomNav,navController)  //binding.bottomNav.setupWithNavController(navController)
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
-             when(menuItem.itemId) {
-                 R.id.home -> {
-                     navController.navigate(R.id.homeFragment)
-                     true
-                 }
-                 R.id.cart -> {
-                     navController.navigate(R.id.cartFragment)
-                     true
-                 }
-                 R.id.favorite -> {
-                     navController.navigate(R.id.favoriteFragment)
-                     true
-                 }
-                 else -> false
-             }
+            when(menuItem.itemId) {
+                R.id.home -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+                R.id.cart -> {
+                    navController.navigate(R.id.cartFragment)
+                    true
+                }
+                R.id.favorite -> {
+                    navController.navigate(R.id.favoriteFragment)
+                    true
+                }
+                else -> false
+            }
 
 
         }

@@ -25,6 +25,7 @@ class HomeRepoImpl @Inject constructor(
                 val apiResponseHandler = ApiResponseHandler(object: ApiResponseHandler.OnResponseListener<List<ProductResponse>> {
                     override suspend fun onSuccess(response: Response<List<ProductResponse>>) {
                         emit(BaseResult.Success(response.body()))
+                        response.body()?.let { dao.insertAll(*it.toTypedArray()) }
                     }
 
                     override suspend fun onClientError(errorMessage: String?) {
