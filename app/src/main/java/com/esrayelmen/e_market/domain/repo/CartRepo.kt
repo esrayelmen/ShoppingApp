@@ -1,14 +1,11 @@
 package com.esrayelmen.e_market.domain.repo
 
-import androidx.lifecycle.LiveData
-import com.esrayelmen.e_market.data.model.ProductResponse
+import com.esrayelmen.e_market.data.model.CartEntity
 
 interface CartRepo {
 
-    suspend fun addToCart(id: Int, isInCart: Boolean)
+    suspend fun addToCart(cartEntity: CartEntity)
 
-    suspend fun getCartItems() : List<ProductResponse>
-
-
+    suspend fun getCartItems() : List<CartEntity>
 
 }

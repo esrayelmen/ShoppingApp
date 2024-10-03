@@ -11,12 +11,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.esrayelmen.e_market.R
 import com.esrayelmen.e_market.presentation.detail.DetailsFragmentArgs
 import com.esrayelmen.e_market.presentation.home.HomeFragment
-import com.esrayelmen.e_market.presentation.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -109,7 +106,7 @@ class MainActivity() : AppCompatActivity() {
         return true
     }
 
-    fun setupBottomNav() {
+    private fun setupBottomNav() {
         //NavigationUI.setupWithNavController(binding.bottomNav,navController)  //binding.bottomNav.setupWithNavController(navController)
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId) {

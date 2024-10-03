@@ -24,16 +24,4 @@ class MainViewModel @Inject constructor(
         _menuVisibility.value = MenuVisibilityState(isSearchVisible,isFilterVisible)
     }
 
-    private val _searchResult = MutableStateFlow<List<ProductResponse>>(listOf())
-    val searchResult: StateFlow<List<ProductResponse>>
-        get() = _searchResult
-
-    fun search(query: String) {
-        viewModelScope.launch {
-            val results = repo.searchProducts(query)
-            _searchResult.value = results
-        }
-    }
-
-
 }

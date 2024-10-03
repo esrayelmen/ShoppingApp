@@ -7,25 +7,25 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.esrayelmen.e_market.R
-import com.esrayelmen.e_market.data.model.ProductResponse
+import com.esrayelmen.e_market.data.model.CartEntity
 import com.esrayelmen.e_market.databinding.CartItemBinding
 
 class CartAdapter() : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     class CartViewHolder(val view: CartItemBinding) :RecyclerView.ViewHolder(view.root)
 
-    private val diffUtil = object : DiffUtil.ItemCallback<ProductResponse>() {
-        override fun areItemsTheSame(oldItem: ProductResponse, newItem: ProductResponse): Boolean {
+    private val diffUtil = object : DiffUtil.ItemCallback<CartEntity>() {
+        override fun areItemsTheSame(oldItem: CartEntity, newItem: CartEntity): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: ProductResponse, newItem: ProductResponse): Boolean {
+        override fun areContentsTheSame(oldItem: CartEntity, newItem: CartEntity): Boolean {
             return oldItem == newItem
         }
     }
 
     private val listDiffer = AsyncListDiffer(this,diffUtil)
-    var cartList: List<ProductResponse>
+    var cartList: List<CartEntity>
         get() = listDiffer.currentList
         set(value) = listDiffer.submitList(value)
 

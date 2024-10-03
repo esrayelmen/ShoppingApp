@@ -6,7 +6,7 @@
     <data>
         <variable
             name="product"
-            type="com.esrayelmen.e_market.data.model.ProductResponse" />
+            type="com.esrayelmen.e_market.data.model.CartEntity" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

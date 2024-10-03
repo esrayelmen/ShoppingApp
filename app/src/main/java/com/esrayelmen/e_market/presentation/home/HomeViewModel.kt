@@ -1,18 +1,15 @@
 package com.esrayelmen.e_market.presentation.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.esrayelmen.e_market.data.model.CartEntity
 import com.esrayelmen.e_market.data.model.ProductResponse
 import com.esrayelmen.e_market.domain.repo.CartRepo
 import com.esrayelmen.e_market.domain.repo.HomeRepo
 import com.esrayelmen.e_market.util.BaseResult
-import com.esrayelmen.e_market.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -81,10 +78,19 @@ class HomeViewModel @Inject constructor(
     fun addToCart(product: ProductResponse) {
         viewModelScope.launch {
             product.id?.let { id ->
-                cartRepo.addToCart(id,true)
+                cartRepo.addToCart(
+                    CartEntity(
+                        product.createdAt,
+                        product.name,
+                        product.imageUrl,
+                        product.price,
+                        product.description,
+                        product.model,
+                        product.brand,
+                        id
+                    )
+                )
             }
         }
     }
-
-
 }
