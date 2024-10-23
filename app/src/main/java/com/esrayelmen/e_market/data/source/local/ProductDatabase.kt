@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.esrayelmen.e_market.data.model.CartEntity
 import com.esrayelmen.e_market.data.model.ProductResponse
 
-@Database(entities = [ProductResponse::class, CartEntity::class], version = 2)
+@Database(entities = [ProductResponse::class, CartEntity::class], version = 1)
 abstract class ProductDatabase : RoomDatabase() {
 
     abstract fun productDao() : ProductDao

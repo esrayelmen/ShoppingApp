@@ -14,6 +14,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/productCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -22,7 +23,7 @@
         app:strokeColor="@color/white"
         app:cardElevation="4dp"
         android:background="@color/white"
-        android:onClick="@{listener::onProductClicked}">
+        android:onClick="@{() -> listener.onProductClicked(product)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,7 +49,11 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/baseline_star_outline_24"
+                android:clickable="true"
+                android:focusable="true"
+                android:selected="@{product.isFavorite}"
+                android:onClick="@{() -> listener.onFavoriteClicked(product)}"
+                android:src="@drawable/fav"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/productImage"
                 app:layout_constraintTop_toTopOf="@+id/productImage" />
@@ -84,6 +89,7 @@
                 app:cornerRadius="100dp"
                 android:text="@string/add_to_cart"
                 android:textSize="15sp"
+                android:onClick="@{() -> listener.onAddToCartClicked(product)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

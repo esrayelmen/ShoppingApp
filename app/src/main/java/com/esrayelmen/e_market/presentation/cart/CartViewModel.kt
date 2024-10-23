@@ -23,14 +23,22 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             cartList.value = repo.getCartItems()
         }
-
     }
 
+    fun deleteCartItems(cartEntity: CartEntity) {
+        viewModelScope.launch {
+            repo.deleteCartItems(cartEntity)
+            getCartItems()
+        }
+    }
 
+    fun updateProductQuantity(cartEntity: CartEntity, isIncrease: Boolean) {
+        viewModelScope.launch {
+            repo.updateProductQuantity(cartEntity, isIncrease)
+            getCartItems()
 
-    //val getCartItems : LiveData<List<ProductResponse>> = repo.getCartItems()
+        }
 
-
-
+    }
 
 }

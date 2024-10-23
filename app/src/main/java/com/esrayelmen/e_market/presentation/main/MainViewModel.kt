@@ -24,4 +24,7 @@ class MainViewModel @Inject constructor(
         _menuVisibility.value = MenuVisibilityState(isSearchVisible,isFilterVisible)
     }
 
+
+
+
 }

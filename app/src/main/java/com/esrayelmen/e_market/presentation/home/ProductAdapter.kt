@@ -12,11 +12,22 @@ import com.esrayelmen.e_market.R
 import com.esrayelmen.e_market.databinding.ProductItemBinding
 import com.esrayelmen.e_market.data.model.ProductResponse
 
-class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(), ProductClickListener {
+class ProductAdapter(private val onItemClickListener : ProductClickListener) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    class ProductViewHolder(val view : ProductItemBinding) : RecyclerView.ViewHolder(view.root)
+    //private var onItemClickListener : ((ProductResponse) -> Unit)? = null
+    //private var onFavoriteClickListener : ((ProductResponse) -> Unit)? = null
 
-    private var onItemClickListener : ((ProductResponse) -> Unit)? = null
+    class ProductViewHolder(val view : ProductItemBinding, private val onItemClickListener : ProductClickListener) : RecyclerView.ViewHolder(view.root) {
+
+        fun bind(product: ProductResponse) {
+            view.product = product
+            view.executePendingBindings()
+
+            //view.favoriteIcon.isSelected = product.isFavorite
+
+        }
+
+    }
 
     private val diffUtil = object : DiffUtil.ItemCallback<ProductResponse>() {
         override fun areItemsTheSame(oldItem: ProductResponse, newItem: ProductResponse): Boolean {
@@ -37,37 +48,41 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = DataBindingUtil.inflate<ProductItemBinding>(inflater, R.layout.product_item, parent, false)
-        return ProductViewHolder(view)
+        return ProductViewHolder(view,onItemClickListener)
     }
 
     override fun getItemCount(): Int {
         return productList.size
     }
 
-    fun setOnItemClickListener(listener : ((ProductResponse) -> Unit)) {
+    /*fun setOnItemClickListener(listener : ((ProductResponse) -> Unit)) {
         onItemClickListener = listener
     }
+    fun setOnFavoriteClickListener(listener : ((ProductResponse) -> Unit)) {
+        onFavoriteClickListener = listener
+    }
+
+     */
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.view.product = productList[position]
-        holder.view.listener = this
-        //println(holder.view.product?.imageUrl)
+        holder.view.listener = onItemClickListener
 
-        holder.view.addToCartBtn.setOnClickListener {
+        //holder.bind(productList[position])
+
+       /* holder.view.addToCartBtn.setOnClickListener {
             onItemClickListener?.let {
                 it(productList[position])
             }
         }
-    }
 
-    override fun onProductClicked(v: View) {
-        val binding = DataBindingUtil.getBinding<ProductItemBinding>(v)
-        val id = binding?.product?.id
-        val name = binding?.product?.name.toString()
-        val action = id?.let { HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id,name) }
-        action?.let {
-            findNavController(v).navigate(action)
+*/
+        holder.view.favoriteIcon.setOnClickListener {
+            holder.view.favoriteIcon.isSelected = productList[position].isFavorite
         }
+        
+
+
     }
 
 }

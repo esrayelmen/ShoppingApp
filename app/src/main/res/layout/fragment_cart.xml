@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="totalPrice"
+            type="String" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                android:layout_marginBottom="60dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:text="Total:"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -38,27 +44,29 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/totalPrice"
+                android:id="@+id/totalPriceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:text='@{totalPrice + " ₺"}'
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="3812.0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textTotal" />
+                app:layout_constraintStart_toEndOf="@+id/textTotal"
+                app:layout_constraintTop_toTopOf="@+id/textTotal" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/completeBtn"
                 android:layout_width="150dp"
                 android:layout_height="45dp"
                 android:layout_marginEnd="18dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="#90000000"
                 android:text="Complete"
                 app:cornerRadius="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textTotal" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

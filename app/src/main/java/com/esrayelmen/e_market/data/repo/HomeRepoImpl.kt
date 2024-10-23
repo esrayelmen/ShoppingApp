@@ -25,7 +25,9 @@ class HomeRepoImpl @Inject constructor(
                 val apiResponseHandler = ApiResponseHandler(object: ApiResponseHandler.OnResponseListener<List<ProductResponse>> {
                     override suspend fun onSuccess(response: Response<List<ProductResponse>>) {
                         emit(BaseResult.Success(response.body()))
-                        response.body()?.let { dao.insertAll(*it.toTypedArray()) }
+                        response.body()?.let {
+                            dao.insertAll(*it.toTypedArray())
+                        }
                     }
 
                     override suspend fun onClientError(errorMessage: String?) {
@@ -48,6 +50,5 @@ class HomeRepoImpl @Inject constructor(
     override suspend fun searchProducts(query: String): List<ProductResponse> {
         return dao.searchProducts("%$query%")
     }
-//dao.insertAll(*response.toTypedArray())
 
 }

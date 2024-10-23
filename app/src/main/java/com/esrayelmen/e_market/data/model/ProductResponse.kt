@@ -34,9 +34,6 @@ data class ProductResponse(
     @PrimaryKey
     val id: Int? = null,
 
-    @ColumnInfo("cartStatus")
-    var isInCart: Boolean = false,
-
     @ColumnInfo("favoriteStatus")
     var isFavorite: Boolean = false
 

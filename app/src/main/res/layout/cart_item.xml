@@ -54,24 +54,24 @@
                 android:minWidth="40dp"
                 android:minHeight="40dp"
                 android:text="-"
-                android:textSize="16sp"
+                android:textSize="50sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textAlignment="center"
                 app:cornerRadius="0dp"
                 android:backgroundTint="#90000000"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@id/textQuantity"
+                app:layout_constraintEnd_toStartOf="@id/quantity"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/textQuantity"
+                android:id="@+id/quantity"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:text="0"
+                android:text="@{String.valueOf(product.quantity)}"
                 app:layout_constraintEnd_toStartOf="@id/plusBtn"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />

@@ -8,4 +8,7 @@ interface CartRepo {
 
     suspend fun getCartItems() : List<CartEntity>
 
+    suspend fun deleteCartItems(cartEntity: CartEntity)
+
+    suspend fun updateProductQuantity(cartEntity: CartEntity, isIncrease: Boolean)
 }

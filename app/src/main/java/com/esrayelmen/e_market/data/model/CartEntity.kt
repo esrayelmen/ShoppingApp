@@ -32,4 +32,7 @@ data class CartEntity(
     @ColumnInfo("id")
     @PrimaryKey
     val id: Int? = null,
+
+    @ColumnInfo("quantity")
+    var quantity: Int = 1
 )

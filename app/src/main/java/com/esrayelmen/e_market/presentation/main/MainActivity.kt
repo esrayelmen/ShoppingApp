@@ -63,7 +63,13 @@ class MainActivity() : AppCompatActivity() {
                 R.id.cartFragment -> {
                     viewModel.menuVisibility(false,false)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                    toolBar.title = "E-Market"
+                    toolBar.title = "Cart"
+                }
+
+                R.id.favoriteFragment -> {
+                    viewModel.menuVisibility(true,true)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    toolBar.title = "Favorites"
                 }
             }
         }
@@ -84,11 +90,10 @@ class MainActivity() : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             val fragment by lazy {
-                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+                //val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
                 navHostFragment.childFragmentManager.fragments[0] as? HomeFragment
             }
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 query?.let {
                     fragment?.homeViewModel?.search(it)
                 }

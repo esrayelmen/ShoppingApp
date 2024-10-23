@@ -1,11 +1,15 @@
 package com.esrayelmen.e_market.presentation.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.esrayelmen.e_market.data.model.CartEntity
 import com.esrayelmen.e_market.data.model.ProductResponse
 import com.esrayelmen.e_market.domain.repo.CartRepo
+import com.esrayelmen.e_market.domain.repo.FavoriteRepo
 import com.esrayelmen.e_market.domain.repo.HomeRepo
+import com.esrayelmen.e_market.presentation.BaseViewModel
 import com.esrayelmen.e_market.util.BaseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,12 +20,14 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeRepo: HomeRepo,
-    private val cartRepo: CartRepo
-) : ViewModel() {
+    cartRepo: CartRepo,
+    favoriteRepo: FavoriteRepo
+) : BaseViewModel(cartRepo, favoriteRepo) {
 
     init {
-        //favoriler set edileceği zaman metod burada çağrılacak
+
     }
+
 
     private var _products = MutableStateFlow<List<ProductResponse>>(emptyList())
     val products: StateFlow<List<ProductResponse>> = _products
@@ -75,22 +81,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun addToCart(product: ProductResponse) {
-        viewModelScope.launch {
-            product.id?.let { id ->
-                cartRepo.addToCart(
-                    CartEntity(
-                        product.createdAt,
-                        product.name,
-                        product.imageUrl,
-                        product.price,
-                        product.description,
-                        product.model,
-                        product.brand,
-                        id
-                    )
-                )
-            }
-        }
-    }
+
+
+
 }
